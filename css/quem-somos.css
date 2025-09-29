@@ -1,0 +1,234 @@
+/* Estilos específicos da página Quem Somos */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-background {
+    background-color: var(--footer-color);
+    width: 100%;
+    margin-top: 70px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 100%);
+    z-index: 1;
+}
+
+.hero-section {
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-section h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.banner-section {
+    width: 100%;
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.banner-container {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.banner-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.banner-container:hover .banner-image {
+    transform: scale(1.02);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+.about-section {
+    padding: 2rem;
+}
+
+.about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-text h2 {
+    color: var(--footer-color);
+    font-size: 1.8rem;
+    margin: 2rem 0 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.about-text h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 50px;
+    height: 3px;
+    background-color: var(--footer-color);
+}
+
+.about-text p {
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #444;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.value-item {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+}
+
+.value-item i {
+    font-size: 2.5rem;
+    color: var(--footer-color);
+    margin-bottom: 1rem;
+}
+
+.value-item h3 {
+    color: var(--footer-color);
+    margin-bottom: 1rem;
+}
+
+.value-item p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.achievements-section {
+    background-color: #f8f8f8;
+    padding: 4rem 2rem;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.achievements-section h2 {
+    color: var(--footer-color);
+    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.achievement-item {
+    text-align: center;
+}
+
+.achievement-item i {
+    font-size: 2.5rem;
+    color: var(--footer-color);
+    margin-bottom: 1rem;
+}
+
+.achievement-item h3 {
+    font-size: 2rem;
+    color: var(--footer-color);
+    margin-bottom: 0.5rem;
+}
+
+.achievement-item p {
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-section {
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,421 @@
+/* Estilos específicos da página inicial */
+.hero-background {
+  background: linear-gradient(rgba(46, 125, 50, 0.85), rgba(46, 125, 50, 0.85)), url('../images/trabalhador.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 600px;
+  color: white;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.hero .button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-color: white;
+  color: var(--footer-color);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.hero .button:hover {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+/* Estilos da seção Quem Somos */
+.about-preview {
+    padding: 5rem 2rem;
+    background-color: white;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h2 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.about-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.about-content p:last-of-type {
+    margin-bottom: 2.5rem;
+}
+
+.about-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.about-button:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Estilos do Carrossel de Logos */
+.clients {
+  background-color: #f5f5f5;
+  padding: 3rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.clients h2 {
+  margin-bottom: 2rem;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+  font-size: 1.8rem;
+}
+
+.clients h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.logo-carousel {
+  overflow: hidden;
+  padding: 15px 0;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.logo-track {
+  display: flex;
+  gap: 30px;
+  width: fit-content;
+  animation: scroll 30s linear infinite;
+}
+
+.logo-slide {
+  flex: 0 0 180px;
+  min-width: 180px;
+  height: 100px;
+  padding: 10px;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-slide:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.logo-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-180px * 10 - 30px * 10));
+  }
+}
+
+.logo-track:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .logo-carousel {
+    max-width: 400px;
+  }
+
+  .logo-track {
+    gap: 20px;
+  }
+
+  .logo-slide {
+    flex: 0 0 140px;
+    min-width: 140px;
+    height: 80px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-140px * 10 - 20px * 10));
+    }
+  }
+}
+
+.features {
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Estilos da seção de serviços */
+.services-overview {
+    background-color: #f9f9f9;
+    padding: 5rem 2rem;
+    margin-top: 2rem;
+}
+
+.services-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.services-content h2 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.services-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.services-content p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.services-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 3rem;
+    max-width: 800px;
+    text-align: left;
+}
+
+.services-content li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.services-content li:hover {
+    transform: translateX(10px);
+}
+
+.services-content li i {
+    color: var(--primary-color);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.services-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.services-button:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 4rem 1rem;
+        min-height: 350px;
+    }
+
+    .hero-content {
+        text-align: center;
+        padding: 1.5rem;
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero .button {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+    }
+
+    .services-overview {
+        padding: 3rem 1rem;
+    }
+
+    .services-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .services-content p {
+        font-size: 1.1rem;
+    }
+
+    .services-content li {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .services-button {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .about-preview {
+        padding: 3rem 1rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 0 1rem;
+    }
+
+    .about-button {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+}

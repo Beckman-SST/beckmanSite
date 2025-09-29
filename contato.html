@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Beckman</title>
+    <link rel="icon" type="image/png" href="images/LOGOBECKMAN-2.png">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/contato.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-vertical.png" alt="Logo Beckman">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir Menu">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html">Início</a>
+                <a href="quem-somos.html">Quem Somos</a>
+                <a href="servicos.html">Serviços</a>
+                <a href="contato.html">Fale Conosco</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="contact-hero">
+            <div class="hero-content">
+                <h1>Fale Conosco</h1>
+                <p><em>Entre em contato conosco e solicite um orçamento</em></p>
+            </div>
+        </section>
+
+        <div class="contact-container">
+            <div class="contact-top">
+                <div class="contact-info">
+                    <h2>Informações de Contato</h2>
+                    <div class="info-item">
+                        <h3>Endereço</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> R. Dom Francisco, Rua 04, Quadra 3, Nº 12, Cohama, CEP: 65073-450, São Luís – MA</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Telefone</h3>
+                        <p><i class="fas fa-phone"></i> (98) 9140-1717</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>E-mail</h3>
+                        <p><i class="fas fa-envelope"></i> administrativo@beckmansst.com.br</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Horário de Atendimento</h3>
+                        <p><i class="fas fa-clock"></i> Segunda a Sexta: 7h30 às 17h30</p>
+                        <p>Sábado: 7h30 às 12h</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="button">Enviar Mensagem</button>
+                </form>
+            </div>
+
+            <div class="location-container">
+                <h2>Nossa Localização</h2>
+                <div class="location-content">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.8553333333334!2d-44.2436111!3d-2.5277778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f68ee53c8c8c89%3A0x7b89f825a8a8a8a8!2sR.%20Dom%20Francisco%2C%204%20-%20Cohama%2C%20S%C3%A3o%20Lu%C3%ADs%20-%20MA%2C%2065073-450!5e0!3m2!1spt-BR!2sbr!4v1621436800000!5m2!1spt-BR!2sbr"
+                        width="100%"
+                        height="400"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-actions">
+                        <button id="openMapBtn" class="button">Abrir no Google Maps</button>
+                        <button id="copyAddressBtn" class="button">Copiar Endereço</button>
+                    </div>
+                    <p class="location-subtitle">Clique nos botões acima para abrir no Google Maps ou copiar o endereço.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Siga-nos nas redes sociais!</h3>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/company/beckmansst/posts/?feedView=all" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/beckmansst/" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/beckmansst" target="_blank" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCyfBshmV9PV7liMLjxLW4fw" target="_blank" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Beckman Saúde e Segurança do Trabalho. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" id="whatsappButton">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal-overlay" id="whatsappModal">
+        <div class="modal-content">
+            <h3>Fale Conosco</h3>
+            <p>Deseja iniciar uma conversa com a Beckman pelo WhatsApp?</p>
+            <div class="modal-buttons">
+                <button class="modal-button confirm" id="confirmWhatsapp">Sim</button>
+                <button class="modal-button cancel" id="cancelWhatsapp">Não</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/contato.js"></script>
+</body>
+</html>

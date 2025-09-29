@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     confirmWhatsapp.addEventListener('click', function() {
-        window.open('https://wa.me/5598991401717', '_blank');
+        window.open('https://wa.me/559882256917', '_blank');
         whatsappModal.style.display = 'none';
     });
 

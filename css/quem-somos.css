@@ -134,11 +134,18 @@
 
 .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    justify-content: center;
 }
 
+@media (max-width: 768px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
 .value-item {
     text-align: center;
     padding: 2rem;

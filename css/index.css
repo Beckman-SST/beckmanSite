@@ -129,52 +129,66 @@
 
 /* Estilos do Carrossel de Logos */
 .clients {
-  background-color: #f5f5f5;
-  padding: 3rem 0;
+  background-color: #1a472a;
+  padding: 4rem 0;
   text-align: center;
   overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
 }
 
 .clients h2 {
-  margin-bottom: 2rem;
-  color: var(--text-color);
+  margin-bottom: 3rem;
+  color: white;
   position: relative;
   display: inline-block;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clients h2 .highlight {
+  color: #8FE895;
+  text-shadow: 0 0 10px rgba(143, 232, 149, 0.5);
 }
 
 .clients h2::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 80px;
   height: 3px;
-  background-color: var(--primary-color);
+  background-color: white;
 }
 
 .logo-carousel {
   overflow: hidden;
-  padding: 15px 0;
-  max-width: 900px;
-  margin: 0 auto;
+  padding: 30px 0;
+  width: 100%;
   position: relative;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo-track {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   width: fit-content;
-  animation: scroll 30s linear infinite;
+  animation: scroll 60s linear infinite;
+  will-change: transform;
 }
 
 .logo-slide {
   flex: 0 0 180px;
   min-width: 180px;
-  height: 100px;
-  padding: 10px;
-  opacity: 0.9;
+  height: 120px;
+  padding: 15px;
+  opacity: 1;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -182,14 +196,14 @@
 }
 
 .logo-slide:hover {
-  opacity: 1;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .logo-slide img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 80px;
   object-fit: contain;
+  filter: none;
 }
 
 @keyframes scroll {
@@ -197,7 +211,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-180px * 10 - 30px * 10));
+    transform: translateX(calc(-220px * 14));
   }
 }
 
@@ -206,18 +220,20 @@
 }
 
 @media (max-width: 768px) {
-  .logo-carousel {
-    max-width: 400px;
+  .clients h2 {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
   }
 
   .logo-track {
-    gap: 20px;
+    gap: 30px;
   }
 
   .logo-slide {
-    flex: 0 0 140px;
-    min-width: 140px;
-    height: 80px;
+    flex: 0 0 150px;
+    min-width: 150px;
+    height: 100px;
+    padding: 10px;
   }
 
   @keyframes scroll {
@@ -225,7 +241,7 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-140px * 10 - 20px * 10));
+      transform: translateX(calc(-180px * 14));
     }
   }
 }
@@ -504,6 +520,18 @@
     color: #555;
     line-height: 1.6;
     font-size: 1rem;
+}
+
+/* Animação de entrada dos cards */
+.slide-in {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.8s ease-out;
+}
+
+.slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 @media (max-width: 768px) {

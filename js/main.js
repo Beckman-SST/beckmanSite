@@ -61,6 +61,27 @@ document.addEventListener('DOMContentLoaded', function() {
             whatsappModal.style.display = 'none';
         }
     });
+
+    // Animação dos cards de diferenciais
+    const cards = document.querySelectorAll('.slide-in');
+    
+    function checkCards() {
+        const triggerBottom = window.innerHeight * 0.8;
+
+        cards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+
+            if (cardTop < triggerBottom) {
+                card.classList.add('active');
+            }
+        });
+    }
+
+    // Verifica a posição inicial dos cards
+    checkCards();
+
+    // Verifica a posição dos cards durante o scroll
+    window.addEventListener('scroll', checkCards);
 });
 
 // Funcionalidade do acordeão na página de serviços

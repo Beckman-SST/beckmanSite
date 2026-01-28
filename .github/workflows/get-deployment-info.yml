@@ -1,0 +1,80 @@
+name: get-deployment-info
+
+on:
+  workflow_call:
+    inputs:
+      target_envs:
+        type: string
+        description: "Comma-separated list of regions to include (e.g., 'br')"
+        required: false
+        default: ""
+      override-env:
+        type: string
+        description: 'Env to Override'
+        required: false
+    outputs:
+      matrix:
+        description: "The environment matrix"
+        value: ${{ jobs.build-matrix.outputs.matrix }}
+      timestamp:
+        description: "The current timestamp"
+        value: ${{ jobs.build-matrix.outputs.timestamp }}
+      deployment-targets:
+        description: "Deployment target details for each environment"
+        value: ${{ jobs.build-matrix.outputs.deployment-targets }}
+
+jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_ENVS: ${{ inputs.target_envs }}
+      OVERRIDE_ENV: ${{ inputs.override-env }}
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+      timestamp: ${{ steps.set_matrix.outputs.timestamp }}
+      deployment-targets: ${{ steps.set_matrix.outputs.deployment-targets }}
+    steps:
+      - name: Set matrix using GitHub Script
+        id: set_matrix
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const branchName = process.env.GITHUB_REF_NAME || 'default';
+            const inputEnvs = process.env.TARGET_ENVS || '';
+            const overrideEnv = process.env.OVERRIDE_ENV || '';
+
+            // Config for BeckmanSite
+            const deploymentTargets = {
+              dev: { 
+                'source-aws-env': 'us-east-1',
+                'domain': 'dev.beckmansst.com.br', // or generic pattern
+                'bucket-prefix': 'beckmansst-site-dev' 
+              },
+              prod: { 
+                'source-aws-env': 'us-east-1',
+                'domain': 'beckmansst.com.br',
+                'bucket-prefix': 'beckmansst-site-prod' 
+              }
+            };
+            
+            // Logic to build matrix
+            let jsonMatrix = { include: [] };
+            let timestamp = new Date().toISOString().replace(/[-:T.]/g, '').slice(0, 12);
+
+            if (overrideEnv && deploymentTargets[overrideEnv]) {
+                jsonMatrix.include.push({ env: overrideEnv, version: overrideEnv });
+                core.setOutput('matrix', JSON.stringify(jsonMatrix));
+                core.setOutput('timestamp', timestamp);
+                core.setOutput('deployment-targets', JSON.stringify({ [overrideEnv]: deploymentTargets[overrideEnv] }));
+                return;
+            }
+
+            if (branchName === 'main') {
+               jsonMatrix.include.push({ env: 'prod', version: timestamp });
+            } else if (branchName === 'develop') {
+               jsonMatrix.include.push({ env: 'dev', version: 'dev' });
+            }
+
+            core.setOutput('matrix', JSON.stringify(jsonMatrix));
+            core.setOutput('timestamp', timestamp);
+            core.setOutput('deployment-targets', JSON.stringify(deploymentTargets));

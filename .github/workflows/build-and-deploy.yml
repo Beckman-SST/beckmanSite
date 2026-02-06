@@ -44,9 +44,9 @@ jobs:
           ENV: ${{ fromJson(needs.get-deployment-info.outputs.matrix).include[0].env }}
         run: |
           # Extract region and targets from JSON
-          REGION=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["source-aws-env"] // "us-east-1"')
-          BUCKET=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["s3-bucket"]')
-          DIST_ID=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["cloudfront-distribution-id"]')
+          REGION=$(echo "$TARGETS" | jq -r --arg e "$ENV" '.[$e]["source-aws-env"] // "us-east-1"')
+          BUCKET=$(echo "$TARGETS" | jq -r --arg e "$ENV" '.[$e]["s3-bucket"]')
+          DIST_ID=$(echo "$TARGETS" | jq -r --arg e "$ENV" '.[$e]["cloudfront-distribution-id"]')
 
           ROLE_ARN="${AWS_ROLE_ARN_PATTERN//\$\{env\}/$ENV}"
 

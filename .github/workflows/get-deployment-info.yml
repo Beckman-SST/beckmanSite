@@ -60,6 +60,7 @@ jobs:
                  deploymentTargets = {
                     dev: { 
                         'source-aws-env': 'us-east-1',
+                        'domain': 'dev.beckmansst.com.br', 
                         'bucket-prefix': 'beckmansst-site-dev' 
                     }
                  };

@@ -37,19 +37,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Determine Env Vars
+      - name: Determine Env Vars & Targets
         id: env-vars
         env:
           TARGETS: ${{ needs.get-deployment-info.outputs.deployment-targets }}
           ENV: ${{ fromJson(needs.get-deployment-info.outputs.matrix).include[0].env }}
         run: |
-          # Extract region from targets
-          REGION=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["source-aws-env"]')
+          # Extract region and targets from JSON
+          REGION=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["source-aws-env"] // "us-east-1"')
+          BUCKET=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["s3-bucket"]')
+          DIST_ID=$(echo '$TARGETS' | jq -r --arg e "$ENV" '.[$e]["cloudfront-distribution-id"]')
+
           ROLE_ARN="${AWS_ROLE_ARN_PATTERN//\$\{env\}/$ENV}"
 
           echo "aws-region=$REGION" >> "$GITHUB_OUTPUT"
           echo "aws-role-arn=$ROLE_ARN" >> "$GITHUB_OUTPUT"
           echo "env=$ENV" >> "$GITHUB_OUTPUT"
+          echo "s3-bucket=$BUCKET" >> "$GITHUB_OUTPUT"
+          echo "cloudfront-id=$DIST_ID" >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,60 +62,13 @@ jobs:
           role-to-assume: ${{ steps.env-vars.outputs.aws-role-arn }}
           aws-region: ${{ steps.env-vars.outputs.aws-region }}
 
-      - name: Lookup Resources
-        id: resources
-        env:
-          ENV: ${{ steps.env-vars.outputs.env }}
-        run: |
-          # Look for bucket by tag (assuming tagged with Name or similar) 
-          # Or just assume name pattern: beckmansst-site-$ENV
-          BUCKET_NAME="beckmansst-site-$ENV" 
-
-          # Verify bucket exists
-          if aws s3 ls "s3://$BUCKET_NAME" 2>&1 > /dev/null; then
-             echo "Found bucket: $BUCKET_NAME"
-             echo "s3-bucket=$BUCKET_NAME" >> "$GITHUB_OUTPUT"
-          else
-             echo "::error::Bucket $BUCKET_NAME not found or not accessible."
-             exit 1
-          fi
-
-          # Find CloudFront Distribution by Tag or Alias
-          # Assuming we can find it by alias or tag. The module sets tags.
-          # Tag: Name = beckmansst-site-$ENV
-          DIST_ID=$(aws resourcegroupstaggingapi get-resources --tag-filters Key=Name,Values=beckmansst-site-$ENV --resource-type-filters cloudfront:distribution --query 'ResourceTagMappingList[0].ResourceARN' --output text | cut -d'/' -f2)
-
-          if [[ -z "$DIST_ID" || "$DIST_ID" == "None" ]]; then
-             echo "::warning::CloudFront distribution not found by tag Name=beckmansst-site-$ENV. Trying list-distributions..."
-             # Fallback: list distributions and check aliases (slower)
-             # Expected Alias: "app.beckmansst.com.br" (prod) or "app.dev.beckmansst.com.br"?
-             # Let's check main.tf logic:
-             # host_name = "app"
-             # domain = "beckmansst.com.br"
-             # So Alias is app.beckmansst.com.br (if prod?)
-             # main.tf: r53 = { zone_id=..., domain="beckmansst.com.br", name="app" }
-             # It seems name is ALWAYS "app".
-             # Wait, `infrastructure_tf` module logic:
-             # `name` (r53) = coalesce(var.r53.name, local.name)
-             # `local.name` uses `local.env`.
-             # If I passed `name="app"`, it uses "app".
-             # So full domain is `app.beckmansst.com.br` ?
-             # But if it's dev, is it `app.dev.beckmansst.com.br`?
-             
-             # Let's rely on Tags for now. If tag lookup failed, maybe tags haven't propagated or permissions issue.
-             # But Resource Groups Tagging API is standard.
-             echo "Could not find distribution."
-             exit 1
-          else
-             echo "Found Distribution: $DIST_ID"
-             echo "cloudfront-id=$DIST_ID" >> "$GITHUB_OUTPUT"
-          fi
+      # Lookup step removed as we use TARGETS json
 
       - name: Upload to S3
         run: |
           # Sync current directory (excluding hidden) to S3
-          aws s3 sync . "s3://${{ steps.resources.outputs.s3-bucket }}" --exclude ".git/*" --exclude ".github/*" --delete
+          aws s3 sync . "s3://${{ steps.env-vars.outputs.s3-bucket }}" --exclude ".git/*" --exclude ".github/*" --delete
 
       - name: Invalidate CloudFront
         run: |
-          aws cloudfront create-invalidation --distribution-id "${{ steps.resources.outputs.cloudfront-id }}" --paths "/*"
+          aws cloudfront create-invalidation --distribution-id "${{ steps.env-vars.outputs.cloudfront-id }}" --paths "/*"

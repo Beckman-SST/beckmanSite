@@ -30,6 +30,7 @@ jobs:
       TARGET_ENVS: ${{ inputs.target_envs }}
       OVERRIDE_ENV: ${{ inputs.override-env }}
       TARGETS: ${{ vars.TARGETS }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       matrix: ${{ steps.set_matrix.outputs.matrix }}
       timestamp: ${{ steps.set_matrix.outputs.timestamp }}
@@ -37,7 +38,7 @@ jobs:
     steps:
       - name: Set matrix using GitHub Script
         id: set_matrix
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const branchName = process.env.GITHUB_REF_NAME || 'default';

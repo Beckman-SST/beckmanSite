@@ -23,6 +23,9 @@ on:
         description: "Deployment target details for each environment"
         value: ${{ jobs.build-matrix.outputs.deployment-targets }}
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build-matrix:
     runs-on: ubuntu-latest
@@ -30,7 +33,6 @@ jobs:
       TARGET_ENVS: ${{ inputs.target_envs }}
       OVERRIDE_ENV: ${{ inputs.override-env }}
       TARGETS: ${{ vars.TARGETS }}
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       matrix: ${{ steps.set_matrix.outputs.matrix }}
       timestamp: ${{ steps.set_matrix.outputs.timestamp }}
